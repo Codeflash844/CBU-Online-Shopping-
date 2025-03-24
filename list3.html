@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Listing</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+      }
+      header {
+         width: 94%;
+         background-color: white;
+         padding: 10px;
+         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+         border-block: 1px solid #ddd;
+      }
+
+     .top-header {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 5px 15px;
+      }
+
+     .menu-icon, .profile-icon {
+         font-size: 24px;
+         cursor: pointer;
+      }
+
+     .logo {
+         font-weight: bold;
+         color: blue;
+         font-size: 15px;
+      }
+
+     .search-bar {
+         display: flex;
+         width: 95%;
+         margin: 10px auto;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+         overflow: hidden;
+      }
+
+     .search-bar input {
+         width: 100%;
+         padding: 10px;
+         border: none;
+         outline: none;
+      }
+
+     .search-bar button {
+         padding: 10px;
+         background: #f1f1f1;
+         border: none;
+         cursor: pointer;
+      }
+
+     
+
+      /* Style buttons */
+      .menu-btn, .profile-btn {
+          background: none;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+      }
+     #sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 250px;
+    height: 100%;
+    background: #f5f5f5;
+    color: black;
+    transition: left 0.3s ease-in-out;
+    padding-top: 50px;
+    z-index: 9999; /* Higher than ads */
+   
+}
+
+#sidebar.active {
+    left: 0; /* Shows sidebar */
+}
+
+#sidebar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#sidebar ul li {
+  border-bottom: 1px solid #eee;
+}
+
+#sidebar ul li a {
+  display: block;
+  padding: 15px 20px;
+  text-decoration: none;
+  color: #333;
+}
+
+#sidebar ul li a:hover {
+  background-color: #f0f0f0;
+  color: #007bff;
+}
+
+#sidebar .active {
+  left: 0;
+}
+
+.hamburger-menu {
+    font-size: 30px;
+    cursor: pointer;
+    padding-left: 1px;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  z-index: 999;
+}
+
+#sidebar.active + .overlay {
+  display: block;
+}
+a {
+  text-decoration: none;
+}nav {
+          display: flex;
+          justify-content: space-around;
+          background-color: white;
+          padding: 1px;
+          border-bottom: 1px solid #ddd;
+          
+      }
+
+      nav a {
+          text-decoration: none;
+          color: black;
+          padding: 8px 15px;
+          font-size: 12px;
+      }
+      nav a:hover {
+        color: blue;
+      }
+      nav a:active {
+        color: red;
+      }
+      
+      
+      .product-list {
+        width: 88%;
+        text-align: left;
+        background-color: white;
+        padding: 20px;
+        border-bottom-left-radius: 40px;
+        border-top-right-radius: 40px;
+        border-block: 1px solid lightblue;
+      }
+      .product {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+        border-block: 1px solid #ccc;
+        border-bottom-left-radius: 40px;
+        border-top-right-radius: 40px;
+        
+      }
+      .description {
+        flex: 1;
+        font-style: 12px;
+        font-weight: bold;
+        padding-right: 20px;
+      }
+      .product img {
+        width: 150px;
+        height: 170px;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border: 1px solid lightblue;
+        border-bottom-left-radius: 40px;
+        border-top-right-radius: 40px;
+      }
+      h3 {
+        padding-left: 10px;
+      }
+      
+      .details {
+        text-decoration: none;
+        font-size: 12px;
+        color: deepskyblue;
+      }
+      p {
+        font-size: 12px;
+      }
+     .product-container {
+    display: flex;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    gap: 15px; /* Space between circles */
+    padding: 10px;
+    white-space: nowrap; /* Prevents wrapping */
+    scrollbar-width: none; /* Hides scrollbar (Firefox) */
+    -ms-overflow-style: none; /* Hides scrollbar (IE & Edge) */
+}
+
+/* Hides scrollbar in WebKit-based browsers (Chrome, Safari) */
+.product-container::-webkit-scrollbar {
+    display: none;
+}
+
+.hot {
+    min-width: 100px; /* Adjust circle size */
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0; /* Fallback background */
+    border: 1px solid lightblue; /* Optional border */
+}
+
+.hot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fits within the circle */
+    border: 1px solid deepskyblue;
+    border-radius: 50%;
+}
+.hots {
+  background-color: white;
+  padding: 10px;
+  border-block: 1px solid lightblue;
+}
+
+    </style>
+  </head>
+  <body>
+   <header>
+    <div class="top-header">
+        <div class="hamburger-menu">
+    ☰
+</div>
+
+<nav id="sidebar">
+    <ul>
+        <li><a href="/Online Shopping.html">Home</a></li>
+       <li><a href="/Online Shopping.html">Favourites</a></li>
+        <li><a href="/CBU Online Shopping /Chat.html">AI Assistant</a></li>
+        <li><a href="/CBU Online Shopping /Cart.html">My Shopping Cart</a></li>
+        <li><a href="/Online Shopping.html">Terms And Conditions</a></li>
+        <li><a href="/Online Shopping.html">Our Privacy Policy</a></li>
+        <li><a href="/Online Shopping.html">Help Center</a></li>
+    </ul>
+</nav>
+<div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+        <p class="logo">CBU Online Shopping</p>
+        <div class="profile-icon"><a href="#">&#128100;</a></div>
+    </div>
+    <div class="search-bar">
+        <input type="text" placeholder="Search Products">
+        <button>🔍</button>
+    </div>
+</header> 
+
+ <nav>
+       <a href="/Online Shopping.html">Home</a>
+       <a href="/CBU Online Shopping /list.html">Clothes</a>
+       <a href="/CBU Online Shopping /list2.html">Electronics</a>
+       <a href="/CBU Online Shopping /list3.html">Utensils</a>
+       <a href="/CBU Online Shopping /list4.html">Food</a>
+       
+   </nav>
+      
+      <h3>Hot</h3>
+      <section class="hots">
+       <div class="product-container">
+        <div class="hot">
+          <img src="/CBU Online Shopping /IMG-20241221-WA0059.jpg" alt="Product 1">
+          
+        </div>
+        <div class="hot"><img src="/CBU Online Shopping /IMG-20241214-WA0029.jpg" alt="Product 2"></div>
+        <div class="hot"><img src="/CBU Online Shopping /IMG-20250108-WA0034.jpg" alt="Product 3"></div>
+       <div class="hot"><img src="/CBU Online Shopping /IMG-20250307-WA0016.jpg" alt="Product 4"></div>
+       <div class="hot"><img src="/CBU Online Shopping /IMG-20250311-WA0021.jpg" alt="Product 5"></div>
+     </div>
+    </section>
+    
+       <section>
+     <h3>Product Manual</h3>
+   <div class="product-list">
+    <div class="product">
+        <div class="description">
+        <p>Tecno Camon 30 Pro</p>
+        <p><font color=red>$560.90</font color></p>
+        <a href="/CBU Online Shopping /Product.html" class="details">View Details...</a>
+        </div>
+        <img src="/CBU Online Shopping /IMG-20250311-WA0021.jpg" alt="Smart Phone">
+    </div>
+
+    <div class="product">
+        <div class="description">
+        <p>Men's T-Shirts</p>
+        <p><font color=red>$20.90</font color></p>
+        <a href="#" class="details">View Details...</a>
+        </div>
+        <img src="/CBU Online Shopping /IMG-20250307-WA0016.jpg" alt="Men's T-Shirt">
+    </div>
+
+    <div class="product">
+        <div class="description">
+        <p>Drawing Instruments</p>
+        <p><font color=red>$2.90</font color></p>
+        <a href="#" class="details">View Details...</a>
+        </div>
+        <img src="/CBU Online Shopping /IMG-20250108-WA0034.jpg" alt="Pre-Cooked Beans">
+    </div>
+       <div class="product">
+        <div class="description">
+        <p>Tecno Camon 30 Pro</p>
+        <p><font color=red>$560.90</font color></p>
+        <a href="#" class="details">View Details...</a>
+        </div>
+        <img src="/CBU Online Shopping /IMG-20241221-WA0059.jpg" alt="Smart Phone">
+    </div>
+
+    <div class="product">
+        <div class="description">
+        <p>Men's T-Shirts</p>
+        <p><font color=red>$20.90</font color></p>
+        <a href="#" class="details">View Details...</a>
+        </div>
+        <img src="/CBU Online Shopping /IMG-20241214-WA0029.jpg" alt="Men's T-Shirt">
+    </div>
+
+    <div class="product">
+        <div class="description">
+        <p>Drawing Instruments</p>
+        <p><font color=red>$2.90</font color></p>
+        <a href="#" class="details">View Details...</a>
+        </div>
+        <img src="/CBU Online Shopping /IMG-20250307-WA0016.jpg" alt="Pre-Cooked Beans">
+    </div>
+</div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+   <script>
+   document.addEventListener("DOMContentLoaded", function () {
+    let menuToggle = document.querySelector(".hamburger-menu"); // Adjust this if needed
+    let sidebar = document.querySelector("#sidebar"); // Make sure this is the actual sidebar ID
+
+    if (!menuToggle || !sidebar) {
+        console.error("Hamburger menu or sidebar not found!");
+        return; // Stop execution if elements are not found
+    }
+
+    menuToggle.addEventListener("click", function () {
+        sidebar.classList.toggle("active");
+    });
+});
+       document.addEventListener("click", function (event) {
+    let sidebar = document.querySelector("#sidebar");
+    let menuToggle = document.querySelector(".hamburger-menu");
+
+    if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+        sidebar.classList.remove("active"); // Closes the sidebar
+    }
+});
+
+  function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    sidebar.classList.toggle("active");
+    overlay.style.display = sidebar.classList.contains("active") ? "block" : "none";
+  }
+
+  // Close sidebar when a link is clicked
+  document.querySelectorAll('#sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById("sidebar").classList.remove("active");
+      document.getElementById("overlay").style.display = "none";
+    });
+  });
+
+   </script>
+  </body>
+</html>

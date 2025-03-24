@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product Preview Page</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    
+    header {
+         width: 94%;
+         background-color: white;
+         padding: 10px;
+         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+         border-block: 1px solid #ddd;
+      }
+
+     .top-header {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 5px 15px;
+      }
+
+     .menu-icon, .profile-icon {
+         font-size: 24px;
+         cursor: pointer;
+      }
+
+     .logo {
+         font-weight: bold;
+         color: blue;
+         font-size: 15px;
+      }
+
+     .search-bar {
+         display: flex;
+         width: 95%;
+         margin: 10px auto;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+         overflow: hidden;
+      }
+
+     .search-bar input {
+         width: 100%;
+         padding: 10px;
+         border: none;
+         outline: none;
+      }
+
+     .search-bar button {
+         padding: 10px;
+         background: #f1f1f1;
+         border: none;
+         cursor: pointer;
+      }
+
+     
+
+      /* Style buttons */
+      .menu-btn, .profile-btn {
+          background: none;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+      }
+     #sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 250px;
+    height: 100%;
+    background: #f5f5f5;
+    color: black;
+    transition: left 0.3s ease-in-out;
+    padding-top: 50px;
+    z-index: 9999; /* Higher than ads */
+   
+}
+
+#sidebar.active {
+    left: 0; /* Shows sidebar */
+}
+
+.hamburger-menu {
+    font-size: 30px;
+    cursor: pointer;
+    padding-left: 1px;
+}
+a {
+  text-decoration: none;
+}
+    
+    nav {
+          display: flex;
+          justify-content: space-around;
+          background-color: white;
+          padding: 1px;
+          border-bottom: 1px solid #ddd;
+          
+      }
+
+      nav a {
+          text-decoration: none;
+          color: black;
+          padding: 8px 15px;
+          font-size: 12px;
+      }
+      nav a:hover {
+        color: blue;
+      }
+      nav a:active {
+        color: red;
+      }
+      
+      .swiper {
+          width: 99%;
+          height: 400px;
+          border-bottom-left-radius: 40px;
+          border-top-right-radius: 40px;
+          border-block: 10px solid orangered;
+          border-left: 1px solid orangered;
+          border-right: 1px solid orangered;
+          justify-items: center;
+      }
+
+      .swiper-slide img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+      }
+      h2 {
+        padding-left: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+      h3 {
+        padding-left: 10px;
+      }
+      .description {
+        font-size: 12px;
+        padding-left: 10px;
+      }
+      section {
+        background-color: white;
+        padding: 8px 15px;
+        border: 1px solid lightblue;
+      }
+      .action {
+        display: flex;
+        margin: 10px auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        padding: 1px 5px;
+        
+        
+      }
+      .order {
+        border: none;
+        outline: none;
+        background-color: orangered;
+        width: 75%;
+        height: 40px;
+        cursor: pointer;
+        font-weight: bold;
+        border-bottom-left-radius: 20px;
+        border-top-left-radius: 5px;
+      }
+      .order a {
+        color: black;
+      }
+      .order a:hover {
+        color: blue;
+      }
+      .order a:active {
+        color: green; 
+      }
+      .cart {
+        width: 30%;
+        border: none;
+        font-size: 17px;
+        background-color: orange;
+        cursor: pointer;
+        color: orangered;
+        border-bottom-right-radius: 20px;
+        border-top-right-radius: 5px;
+      }
+           .product-container {
+    display: flex;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    gap: 15px; /* Space between circles */
+    padding: 10px;
+    white-space: nowrap; /* Prevents wrapping */
+    scrollbar-width: none; /* Hides scrollbar (Firefox) */
+    -ms-overflow-style: none; /* Hides scrollbar (IE & Edge) */
+    border-bottom: 1px solid lightblue;
+}
+  .product-container1 {
+    display: flex;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    gap: 15px; /* Space between circles */
+    padding: 10px;
+    white-space: nowrap; /* Prevents wrapping */
+    scrollbar-width: none; /* Hides scrollbar (Firefox) */
+    -ms-overflow-style: none; /* Hides scrollbar (IE & Edge) */
+}
+/* Hides scrollbar in WebKit-based browsers (Chrome, Safari) */
+.product-container::-webkit-scrollbar {
+    display: none;
+}
+
+.hot {
+    min-width: 100px; /* Adjust circle size */
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0; /* Fallback background */
+    border: 1px solid lightblue; /* Optional border */
+}
+
+.hot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fits within the circle */
+    border: 1px solid deepskyblue;
+    border-radius: 50%;
+}
+.hots {
+  background-color: white;
+  padding: 10px;
+  border-block: 1px solid lightblue;
+  margin-bottom: 15px;
+}
+.star-rating {
+  padding-left: 10px;
+  font-size: 25px;
+}
+.img {
+  width: 120px;
+  height: 150px;
+  padding-left: 30px;
+  margin-left: 15px;
+  border-block: 10px solid orangered;
+  border-left: 1px solid orangered;
+  border-right: 1px solid orangered;
+  border-bottom-left-radius: 40px;
+  border-top-right-radius: 40px;
+}
+.words {
+  margin-left: 10px;
+  margin-bottom: 5px;
+  font-size: 13px;
+  border-block: 1px solid #ddd;
+}
+
+  </style>
+</head>
+<body>
+      <header>
+    <div class="top-header">
+        <div class="hamburger-menu">
+    ☰
+</div>
+
+<nav id="sidebar">
+    <ul>
+        <li><a href="/Online Shopping.html">Home</a></li>
+       <li><a href="/Online Shopping.html">Favourites</a></li>
+        <li><a href="/CBU Online Shopping /Chat.html">AI Assistant</a></li>
+        <li><a href="/CBU Online Shopping /Cart.html">My Shopping Cart</a></li>
+        <li><a href="/Online Shopping.html">Terms And Conditions</a></li>
+        <li><a href="/Online Shopping.html">Our Privacy Policy</a></li>
+        <li><a href="/Online Shopping.html">Help Center</a></li>
+    </ul>
+</nav>
+        <p class="logo">CBU Online Shopping</p>
+        <div class="profile-icon"><a href="#">&#128100;</a></div>
+    </div>
+    <div class="search-bar">
+        <input type="text" placeholder="Search Products">
+        <button>🔍</button>
+    </div>
+</header> 
+
+ <nav>
+       <a href="/Online Shopping.html">Home</a>
+       <a href="/CBU Online Shopping /list.html">Clothes</a>
+       <a href="/CBU Online Shopping /list2.html">Electronics</a>
+       <a href="/CBU Online Shopping /list3.html">Utensils</a>
+       <a href="/CBU Online Shopping /list4.html">Food</a>
+       
+   </nav>
+    <br>
+      <div class="swiper">
+       <div class="swiper-wrapper">
+           <div class="swiper-slide"><img src="/CBU Online Shopping /IMG-20250108-WA0034.jpg" alt="Ad 1"></div>
+           <div class="swiper-slide"><img src="/CBU Online Shopping /IMG-20250108-WA0034.jpg" alt="Ad 2"></div>
+           <div class="swiper-slide"><img src="/CBU Online Shopping /IMG-20250108-WA0034.jpg" alt="Ad 3"></div>
+           <div class="swiper-slide"><img src="/CBU Online Shopping /IMG-20250108-WA0034.jpg" alt="Ad 3"></div>
+           <div class="swiper-slide"><img src="/CBU Online Shopping /IMG-20250108-WA0034.jpg" alt="Ad 3"></div>
+       </div>
+       <!-- Pagination (dots) -->
+       <div class="swiper-pagination"></div>
+   </div>
+   <br>
+   <section>
+   <h2>Toxido Slim Suit</h2>
+   <h3>Price: <font color=red>K800.00</font> ( Free Delivery )</h3>
+   <p class="description">The title can usually draw attention of the reader to your work. It should clearly represent the work 
+    presented. The report’s title should be short but descriptive, indicating the qualitative or quantitative nature 
+     of the practical along with the primary goal or area of focus.</p>
+     </section>
+     
+     <section>
+       <div class="variations">
+         <h2>Variations</h2>
+         <ul>
+           <li>Red</li>
+           <li>Green</li>
+           <li>black</li>
+           <li>Gray</li>
+         </ul>
+       </div>
+     </section>
+     
+     <section>
+       <div class="Product-Rating">
+         <h2>Product Rating</h2>
+         <div class="star-rating">⭐ ⭐ ⭐ ⭐ ⭐</div>
+         <br>
+         <div class="comments">
+           <img src="/CBU Online Shopping /IMG-20250108-WA0034.jpg" alt="profile" class="img">
+         </div>
+         <br>
+         <div class="words">
+           <p>The product is brand new all the way from UK and has very good, durable quality.  </p>
+         </div>
+       </div>
+       
+     </section>
+           <h3>You Might Also Like</h3>
+      <section class="hots">
+       <div class="product-container">
+        <div class="hot">
+          <img src="/CBU Online Shopping /IMG-20250307-WA0016.jpg" alt="Product 1">
+        </div>
+        <div class="hot"><img src="/CBU Online Shopping /IMG-20250108-WA0034.jpg" alt="Product 2"></div>
+        <div class="hot"><img src="/CBU Online Shopping /IMG-20250108-WA0034.jpg" alt="Product 3"></div>
+     </div>
+     
+     <div class="product-container1">
+        <div class="hot">
+          <img src="/CBU Online Shopping /IMG-20250311-WA0020.jpg" alt="Product 1">
+          
+        </div>
+        <div class="hot"><img src="/CBU Online Shopping /IMG-20250311-WA0024.jpg" alt="Product 2"></div>
+        <div class="hot"><img src="/CBU Online Shopping /IMG-20241214-WA0029.jpg" alt="Product 3"></div>
+       
+     </div>
+    </section>
+     <div class="action">
+       <button onclick="" class="order"><a href="https://wa.me/260768956378">Purchase Now</a></button>
+       <button onclick="" class="cart"><a href="/CBU Online Shopping /Cart.html">🛒</a></button>
+     </div>
+     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+   <script>
+       var swiper = new Swiper('.swiper', {
+           loop: true,
+           autoplay: {
+               delay: 3000, // Change slide every 3 seconds
+               disableOnInteraction: false
+           },
+           pagination: {
+               el: '.swiper-pagination',
+               clickable: true,
+           },
+       });
+       
+   document.addEventListener("DOMContentLoaded", function () {
+    let menuToggle = document.querySelector(".hamburger-menu"); // Adjust this if needed
+    let sidebar = document.querySelector("#sidebar"); // Make sure this is the actual sidebar ID
+
+    if (!menuToggle || !sidebar) {
+        console.error("Hamburger menu or sidebar not found!");
+        return; // Stop execution if elements are not found
+    }
+
+    menuToggle.addEventListener("click", function () {
+        sidebar.classList.toggle("active");
+    });
+});
+       document.addEventListener("click", function (event) {
+    let sidebar = document.querySelector("#sidebar");
+    let menuToggle = document.querySelector(".hamburger-menu");
+
+    if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+        sidebar.classList.remove("active"); // Closes the sidebar
+    }
+});
+   </script>
+</body>
+</html>
